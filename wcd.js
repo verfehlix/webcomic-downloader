@@ -26,7 +26,7 @@ var getInfo = function(url) {
 
                 var imgUrl = xpath.select(config.xpathImg, doc)[0].nodeValue;
                 var nextUrl = xpath.select(config.xpathNext, doc)[0].nodeValue;
-                var name = xpath.select(config.xpathNaming, doc)[0].firstChild.data;
+                var name = xpath.select(config.xpathNaming, doc)[0].nodeValue;
 
                 console.log(counter + " - Started.");
 
@@ -39,6 +39,12 @@ var getInfo = function(url) {
                 downloadPicture(imgUrl, fileName, counter, function(counter, uri){
                     console.log(counter + " - Done.");
                 })
+
+                //if nextUrl is a link that does not include the base (e.g. /blub instead of http://comic.com/blub) get the base part from the startUrl and prepend it
+                if(nextUrl.indexOf("http://") === -1){
+                    nextUrl = "http://www." + config.startUrl.split("/")[2] + nextUrl;
+
+                }
 
                 getInfo(nextUrl);
 
@@ -78,5 +84,5 @@ var start = function(config){
 };
 
 //path to your config file goes in here
-var config = require('./config_files/ma4.json');
+var config = require('./config_files/oglaf.json');
 start(config);

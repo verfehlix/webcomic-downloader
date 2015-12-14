@@ -1,0 +1,7 @@
+{
+	"name": "Oglaf",
+	"startUrl": "http://oglaf.com/cumsprite/",
+	"xpathImg": "//img[@id='strip']/@src",
+	"xpathNext": "//div[@id='nav']/a[3]/@href",
+	"xpathNaming": "//div[@id='tt']/img/@title"
+}
