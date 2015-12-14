@@ -3,5 +3,5 @@
 	"startUrl": "http://www.ma3comic.com/strips-ma3/room_for_two_more_%28vol1%29",
 	"xpathImg": "//div[@id='cc']/a/img/@src",
 	"xpathNext": "//a[@id='cndnext']/@href",
-	"xpathNaming": "//div[@id='ical']/a"
+	"xpathNaming": "id('navjump')/option[1]/text()"
 }

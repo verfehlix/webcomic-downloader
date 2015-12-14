@@ -5,7 +5,8 @@ var xpath = require('xpath');
 var sanitize = require("sanitize-filename");
 var mkdirp = require('mkdirp');
 
-var maxAmount = 10;
+var useCounterInName = true;
+var maxAmount = 50;
 var counter = 0;
 
 var getInfo = function(url) {
@@ -34,14 +35,19 @@ var getInfo = function(url) {
                     if(err) console.log("Error during folder creation: " + err);
                 });
 
-                var fileName = "img/" + config.name + "/" + counter + " - " + sanitize(name);
+                var fileName;
+                if(useCounterInName){
+                    fileName = "img/" + config.name + "/" + counter + " - " + sanitize(name);
+                } else {
+                    fileName = "img/" + config.name + "/" + sanitize(name);
+                }
 
                 downloadPicture(imgUrl, fileName, counter, function(counter, uri){
                     console.log(counter + " - Done.");
                 })
 
                 //if nextUrl is a link that does not include the base (e.g. /blub instead of http://comic.com/blub) get the base part from the startUrl and prepend it
-                if(nextUrl.indexOf("http://") === -1){
+                if(nextUrl.indexOf("http://") === -1 && nextUrl.indexOf("www") === -1){
                     nextUrl = "http://www." + config.startUrl.split("/")[2] + nextUrl;
 
                 }
