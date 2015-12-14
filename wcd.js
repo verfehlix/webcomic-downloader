@@ -4,16 +4,11 @@ var DOMParser = require('xmldom').DOMParser;
 var xpath = require('xpath');
 var sanitize = require("sanitize-filename");
 
-//xpath queries
-var img = '//div[@id="cc"]/a/img/@src';
-var next = '//a[@id="cndnext"]/@href';
-var naming = '//div[@id="ical"]/a';
+//path to your config file for the webcomic
+var config = require('./config_files/menage_a_trois.json');
 
-var nameOfComic = "Menage A Trois";
-var startUrl = "http://www.ma3comic.com/strips-ma3/wing*girl*";
-
-var maxAmount = 500;
-var counter = 72;
+var maxAmount = 10;
+var counter = 0;
 
 var getInfo = function(url) {
     counter++;
@@ -31,13 +26,13 @@ var getInfo = function(url) {
 
                 var doc = parser.parseFromString(body);
 
-                var imgUrl = xpath.select(img, doc)[0].nodeValue;
-                var nextUrl = xpath.select(next, doc)[0].nodeValue;
-                var name = xpath.select(naming, doc)[0].firstChild.data;
+                var imgUrl = xpath.select(config.xpathImg, doc)[0].nodeValue;
+                var nextUrl = xpath.select(config.xpathNext, doc)[0].nodeValue;
+                var name = xpath.select(config.xpathNaming, doc)[0].firstChild.data;
 
                 console.log(counter + " - Started.");
 
-                var fileName = "img/" + nameOfComic + "/" + counter + " - " + sanitize(name);
+                var fileName = "img2/" + config.name + "/" + counter + " - " + sanitize(name);
 
                 downloadPicture(imgUrl, fileName, counter, function(counter, uri){
                     console.log(counter + " - Done.");
@@ -62,4 +57,4 @@ var downloadPicture = function(uri, filename, counter, callback) {
     });
 };
 
-getInfo(startUrl);
+getInfo(config.startUrl);
