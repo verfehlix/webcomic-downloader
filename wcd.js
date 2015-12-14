@@ -3,9 +3,7 @@ var request = require('request');
 var DOMParser = require('xmldom').DOMParser;
 var xpath = require('xpath');
 var sanitize = require("sanitize-filename");
-
-//path to your config file for the webcomic
-var config = require('./config_files/menage_a_trois.json');
+var mkdirp = require('mkdirp');
 
 var maxAmount = 10;
 var counter = 0;
@@ -32,7 +30,11 @@ var getInfo = function(url) {
 
                 console.log(counter + " - Started.");
 
-                var fileName = "img2/" + config.name + "/" + counter + " - " + sanitize(name);
+                mkdirp('img/'+config.name, function(err) {
+                    if(err) console.log("Error during folder creation: " + err);
+                });
+
+                var fileName = "img/" + config.name + "/" + counter + " - " + sanitize(name);
 
                 downloadPicture(imgUrl, fileName, counter, function(counter, uri){
                     console.log(counter + " - Done.");
@@ -57,4 +59,24 @@ var downloadPicture = function(uri, filename, counter, callback) {
     });
 };
 
-getInfo(config.startUrl);
+var outputInfo = function(config){
+    console.log("WCD - Web Comic Downloader");
+    console.log("--------------------------");
+    console.log("Config file loaded:");
+    console.log("Name: " + config.name);
+    console.log("Starting at URL: " + config.startUrl);
+    console.log("XPath for Image: " + config.xpathImg);
+    console.log("XPath for Next: " + config.xpathNext);
+    console.log("XPath for Naming: " + config.xpathNaming);
+    console.log("--------------------------");
+
+}
+
+var start = function(config){
+    outputInfo(config);
+    getInfo(config.startUrl);
+};
+
+//path to your config file goes in here
+var config = require('./config_files/ma4.json');
+start(config);
