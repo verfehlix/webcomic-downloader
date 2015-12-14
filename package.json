@@ -1,0 +1,10 @@
+{
+  "name": "wcd",
+  "version": "0.1.0",
+  "dependencies": {
+    "request": "^2.67.0",
+    "sanitize-filename": "^1.5.3",
+    "xmldom": "^0.1.19",
+    "xpath": "0.0.9"
+  }
+}
