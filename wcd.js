@@ -35,6 +35,10 @@ var getInfo = function(url) {
                     if(err) console.log("Error during folder creation: " + err);
                 });
 
+                if(imgUrl.indexOf("http:") === -1){
+                    imgUrl = "http:" + imgUrl;
+                }
+
                 var fileName;
                 if(useCounterInName){
                     fileName = "img/" + config.name + "/" + counter + " - " + sanitize(name);
@@ -90,5 +94,5 @@ var start = function(config){
 };
 
 //path to your config file goes in here
-var config = require('./config_files/oglaf.json');
+var config = require('./config_files/xkcd.json');
 start(config);

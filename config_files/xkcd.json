@@ -1,0 +1,7 @@
+{
+	"name": "XKCD",
+	"startUrl": "http://xkcd.com/1",
+	"xpathImg": "//div[@id='comic']/img/@src",
+	"xpathNext": "//div[@id='middleContainer']/ul[1]/li[4]/a/@href",
+	"xpathNaming": "id('ctitle')/text()"
+}
