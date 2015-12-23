@@ -1,6 +1,6 @@
-# wcd-nodejs 
+# webcomic-downloader
 
-## Easily download webcomics with this tool using **cool** **webscale** **state-of-the-art** techniques like:
+### Easily download webcomics with this tool using cool webscale state-of-the-art techniques like:
 
 - [x] Node.js :new:
 - [x] Recursion :cool:
@@ -40,14 +40,14 @@ node wcd.js -p config_files/my_supercomic.json -m 750
 
 ## Config file
 
-Can look like this:
+E.g. the config file for downloading XKCD looks like this:
 ```json
 {
-	"name": "Menage A Trois",
-	"startUrl": "http://www.ma3comic.com/strips-ma3/room_for_two_more_%28vol1%29",
-	"xpathImg": "//div[@id='cc']/a/img/@src",
-	"xpathNext": "//a[@id='cndnext']/@href",
-	"xpathNaming": "id('navjump')/option[1]/text()"
+	"name": "XKCD",
+	"startUrl": "http://xkcd.com/1",
+	"xpathImg": "//div[@id='comic']/img/@src",
+	"xpathNext": "//div[@id='middleContainer']/ul[1]/li[4]/a/@href",
+	"xpathNaming": "id('ctitle')/text()"
 }
 ```
 
