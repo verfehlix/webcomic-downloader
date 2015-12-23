@@ -2,6 +2,7 @@
   "name": "wcd",
   "version": "0.1.0",
   "dependencies": {
+    "commander": "^2.9.0",
     "mkdirp": "^0.5.1",
     "request": "^2.67.0",
     "sanitize-filename": "^1.5.3",
