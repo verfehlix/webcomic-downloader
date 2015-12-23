@@ -1,14 +1,44 @@
 # wcd-nodejs 
 
-## Easily download webcomics with this tool using ```cool``` and absolutely ```webscale``` ```state-of-the-art``` webcomic-downloading techniques such as:
+## Easily download webcomics with this tool using **cool** **webscale** **state-of-the-art** techniques like:
 
 - [x] Node.js :new:
-- [x] Recursion (just like in CS101) :cool:
+- [x] Recursion :cool:
 - [x] XPath :top:
-- [x] JSON !YEAH!SPECIAL!SUPER! :sunglasses:
+- [x] JSON :sunglasses:
+
+## What wcd does
+wcd will visit the provided starting page, extract & download the image, visit the next page, extract & download the image, visit the next page, extract & download the image, visit the next page, ... , until a certain threshold is reached, then it will stop.
+
+## Usage
+```
+λ node wcd.js -h                                                                                               
+                                                                                                               
+  Usage: wcd [options]                                                                                         
+                                                                                                               
+  Options:                                                                                                     
+                                                                                                               
+    -h, --help                        output usage information                                                 
+    -V, --version                     output the version number                                                
+    -p, --path [path-to-config-file]  Specify the (relative) path to your config file for your webcomic.       
+    -m, --max [number]                How many pages you want to download. Default: 0                          
+    -c, --counter [number]            The initial value of the counter. Default: 0                             
+    -n, --name                        If flag is set, the value of the counter will be used in the file name.  
+```
+
+For example: 
+```
+node wcd.js -p config_files/my_supercomic.json -m 750
+```
+
+| Attribute    	| Description                                                                                                                                                                                 	|
+|--------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| -m --max     	| Sets how many pages/chapters/images etc. you want to download                                                                                                                               	|
+| -c --counter 	| Set it to a different number than 0 (default), if you for example paused the downloading and changed the startUrl (changing the counter makes the numbers for the fileNames match up again) 	|
+| -n --name    	| Sets if the counter should be included in the filename (e.g. don't use when there is already a number in the titles of the comics)                                                          	|
 
 
-## You need to provide an config file in json format
+## Config file
 
 Can look like this:
 ```json
@@ -21,24 +51,10 @@ Can look like this:
 }
 ```
 
-- ```name``` :arrow_right: The name of the webcomic (duh)
-- ```startUrl``` :arrow_right: Where the downloader should start
-- XPath Queries:
-   - ```img``` :arrow_right: shoud point to the src attribute of the image you want to download
-   - ```next``` :arrow_right: should point to the href attribute of the next-comic-link on the website
-   - ```naming``` :arrow_right: should lead to a link that contains the name of the current comic/chapter/page/whatever
-   - **Important Note: The Xpath queries must lead to such an element that element[0].nodeValue points to the actual textual value of the urls/name !!!**
-
-
-You need to include this config file in ```wcd.js```, like this
-```javascript
-var config = require('./config_files/myConfig.json');
-```
-
-Also, you can set 
-- ```var useCounterInName``` sets if the counter should be included in the filename (e.g. don't use when there is already a number in the titles of the comics)
-- ```var maxAmount``` to how many pages/chapters/etc. you want to download
-- ```var counter``` to a different number than 0, if you for example paused the downloading and changed the startUrl (changing the counter makes the numbers for the fileNames match up again)
-
-
-**wcd** will now visit the provided starting page, extract & download the image, visit the next page, extract & download the image, visit the next page, extract & download the image, visit the next page, extract & download the image, visit the next page, extract & download the image, visit the next page, ... , until it has done this maxAmount of times, then it will stop.
+| Attribute   	| Description                                                                             	|
+|-------------	|-----------------------------------------------------------------------------------------	|
+| name        	| The name of the webcomic (used for creating the folder)                                 	|
+| startUrl    	| Where the downloader should start                                                       	|
+| xpathImg    	| Shoud point to the src attribute of the image you want to download                      	|
+| xpathNext   	| Should point to the href attribute of the next-comic-link on the website                	|
+| xpathNaming 	| should lead to a link that contains the name of the current comic/chapter/page/whatever 	|
